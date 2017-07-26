@@ -43,10 +43,14 @@ String basePath = request.getScheme() + "://"
    
                     <li class="agency">
 						<div class="nav-header">
-							<a href="javascript:;" date-src="/SManger/student/getStuList?currPage=1" class="ue-clear"><span>学生管理</span><i class="icon"></i></a>
+							<a href="javascript:;" date-src="${pageContext.request.contextPath}/student/getStuList?currPage=1" class="ue-clear"><span>学生管理</span><i class="icon"></i></a>
 						</div>
 					</li>
-                    <li class="gongwen"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>课程管理</span><i class="icon"></i></a></div></li>
+                    <li class="agency">
+                        <div class="nav-header">
+                            <a href="javascript:;" date-src="${pageContext.request.contextPath}/course/getCouList?currPage=1" class="ue-clear"><span>课程管理</span><i class="icon"></i></a>
+                        </div>
+                    </li>
                     <li class="office"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>成绩管理</span><i class="icon"></i></a></div></li>
                 </ul>
             </div>
