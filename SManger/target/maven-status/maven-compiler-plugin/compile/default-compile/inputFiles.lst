@@ -1,10 +1,5 @@
-D:\WorkSpace\SManger\src\main\java\com\unicom\model\Course.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\controller\StudentController.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\dao\IStudentDao.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\controller\CourseController.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\dao\ICourseDao.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\service\StudentService.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\model\Student.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\service\CourseService.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\service\impl\StudentServiceImpl.java
-D:\WorkSpace\SManger\src\main\java\com\unicom\service\impl\CourseServiceImpl.java
+D:\workSpace\SManger\src\main\java\com\unicom\controller\StudentController.java
+D:\workSpace\SManger\src\main\java\com\unicom\dao\IStudentDao.java
+D:\workSpace\SManger\src\main\java\com\unicom\service\StudentService.java
+D:\workSpace\SManger\src\main\java\com\unicom\model\Student.java
+D:\workSpace\SManger\src\main\java\com\unicom\service\impl\StudentServiceImpl.java

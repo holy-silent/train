@@ -18,6 +18,37 @@ public class Student {
 
     private Integer reserved2;
 
+    public Student() {
+    }
+
+    public Student(String name, String no, Integer age, String grade, String stuClass) {
+        this.name = name;
+        this.no = no;
+        this.age = age;
+        this.grade = grade;
+        this.stuClass = stuClass;
+    }
+
+    public Student(Integer id, String name, String no, Integer age, String grade, String stuClass) {
+        this.id = id;
+        this.name = name;
+        this.no = no;
+        this.age = age;
+        this.grade = grade;
+        this.stuClass = stuClass;
+    }
+
+    public Student(Integer id, String name, String no, Integer age, String grade, String stuClass, String reserved1, Integer reserved2) {
+        this.id = id;
+        this.name = name;
+        this.no = no;
+        this.age = age;
+        this.grade = grade;
+        this.stuClass = stuClass;
+        this.reserved1 = reserved1;
+        this.reserved2 = reserved2;
+    }
+
     public Integer getId() {
         return id;
     }

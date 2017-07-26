@@ -24,7 +24,7 @@ String basePath = request.getScheme() + "://"
 			<div class="title">学生综合管理系统</div>
 			
             <div class="toolbar ue-clear">
-                <a href="javascript:;" class="home-btn">首页</a>
+                <a href="/SManger/index.jsp" class="home-btn">首页</a>
                 <a href="javascript:;" class="quit-btn exit"></a>
             </div>
 			<div class="login-info ue-clear">
@@ -43,14 +43,10 @@ String basePath = request.getScheme() + "://"
    
                     <li class="agency">
 						<div class="nav-header">
-							<a href="javascript:;" date-src="${pageContext.request.contextPath}/student/getStuList?currPage=1" class="ue-clear"><span>学生管理</span><i class="icon"></i></a>
+							<a href="javascript:;" date-src="/SManger/student/getStuList?currPage=1" class="ue-clear"><span>学生管理</span><i class="icon"></i></a>
 						</div>
 					</li>
-                    <li class="agency">
-                        <div class="nav-header">
-                            <a href="javascript:;" date-src="${pageContext.request.contextPath}/course/getCouList?currPage=1" class="ue-clear"><span>课程管理</span><i class="icon"></i></a>
-                        </div>
-                    </li>
+                    <li class="gongwen"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>课程管理</span><i class="icon"></i></a></div></li>
                     <li class="office"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>成绩管理</span><i class="icon"></i></a></div></li>
                 </ul>
             </div>

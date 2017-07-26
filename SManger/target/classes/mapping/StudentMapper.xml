@@ -15,11 +15,90 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, name, no, age, grade, stu_class, reserved1, reserved2
+    id, name, no, age, grade, class, reserved1, reserved2
   </sql>
 
-
-  <select id="getStuList" resultMap="BaseResultMap">
-    select * from students
+  <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+     select
+     <include refid="Base_Column_List" />
+     from students
+     where id = #{id,jdbcType=INTEGER}
+   </select>-->
+  <!---->
+  <!--查询学生列表-->
+  <select id="getStuList" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from students
+    where 1=1
+    <if test="null != stuName and '' != stuName" >
+      and name like  CONCAT('%','${stuName}','%' )
+    </if>
+    limit #{pstart},#{psize}
   </select>
+
+  <!--查询总记录数-->
+  <select id="getTotalCount" parameterType="map" resultType="java.lang.String">
+    select count(*) from students
+    where 1=1
+    <if test="null != stuName and '' != stuName" >
+      and name like  CONCAT('%','${stuName}','%' )
+    </if>
+  </select>
+
+  <!--查询学号是否存在-->
+  <select id="noIsExist" parameterType="java.lang.String" resultType="java.lang.String">
+    select count(*) from students
+    where 1=1
+    <if test="null != no and '' != no" >
+      and no = #{no}
+    </if>
+  </select>
+
+  <!--插入一条记录-->
+  <insert id="studentAdd" parameterType="com.unicom.model.Student" >
+    insert into students (name, no,
+    age, grade, class)
+    values (#{name}, #{no},
+    #{age}, #{grade}, #{stuClass})
+  </insert>
+
+
+  <!--根据id得到学生信息-->
+  <select id="getStuById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from students
+    where id=#{id,jdbcType=INTEGER}
+  </select>
+
+  <!--根据id修改学生信息-->
+  <update id="studentUpdate" parameterType="com.unicom.model.Student">
+      update students
+      <set >
+        <if test="name != null" >
+          name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="no != null" >
+          no = #{no,jdbcType=VARCHAR},
+        </if>
+        <if test="age != null" >
+          age = #{age,jdbcType=INTEGER},
+        </if>
+        <if test="grade != null" >
+          grade = #{grade,jdbcType=VARCHAR},
+        </if>
+        <if test="stuClass != null" >
+          class = #{stuClass,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where id=#{id,jdbcType=INTEGER}
+  </update>
+
+  <!--删除学生信息-->
+  <delete id="delStuList" parameterType="java.lang.String" >
+    delete from students
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
 </mapper>
