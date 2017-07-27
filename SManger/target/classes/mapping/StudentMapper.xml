@@ -101,4 +101,89 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMapScore" type="com.unicom.model.StuScore" >
+    <result column="name" property="stuName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getStuScore" parameterType="java.lang.String" resultMap="BaseResultMapScore">
+    select
+    stu.name as name,sc.score as score
+    from students stu ,course cou ,score sc
+    where 1=1
+    and stu.id = sc.stu_id    and cou.id=sc.cou_id
+    <if test="null != _parameter  and '' != _parameter " >
+      and cou.name = #{coureName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMapCoure" type="com.unicom.model.Coure" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getCoureList" resultMap="BaseResultMapCoure">
+    select name
+    from course
+  </select>
+
+
+
+
+  <select id="getStuList2" resultMap="BaseResultMap">
+    select name
+    from students
+  </select>
+
+
+
+
+  <!--选课-->
+
+  <resultMap id="BaseResultMapCoureSel" type="com.unicom.model.CoureSel" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getCoureSelList" parameterType="java.lang.String" resultMap="BaseResultMapCoureSel">
+    select cou.id,cou.name,
+    case when (
+    select coue.id as id from students stu ,course coue,couresel cous
+    where stu.id = cous.stu_id and coue.id = cous.cou_id and stu.id=#{id,jdbcType=VARCHAR}
+    and cous.cou_id = cou.id
+    ) then 1 else 0 end  as status
+    from course cou
+  </select>
+
+
+  <!--退选-->
+  <delete id="delCoureSel" parameterType="map" >
+    delete from couresel
+    where stu_id = #{stuId} and cou_id = #{couId}
+  </delete>
+
+
+
+  <!--选课-->
+  <insert id="addCoureSel" parameterType="map" >
+    insert into couresel (stu_id, cou_id)
+    values (#{stuId}, #{couId})
+  </insert>
+
 </mapper>

@@ -46,7 +46,11 @@ String basePath = request.getScheme() + "://"
 							<a href="javascript:;" date-src="/SManger/student/getStuList?currPage=1" class="ue-clear"><span>学生管理</span><i class="icon"></i></a>
 						</div>
 					</li>
-                    <li class="gongwen"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>课程管理</span><i class="icon"></i></a></div></li>
+                    <li class="gongwen">
+                        <div class="nav-header">
+                            <a href="javascript:;" date-src="/SManger/coure/getCoureList?currPage=1"  class="ue-clear"><span>课程管理</span><i class="icon"></i></a>
+                        </div>
+                    </li>
                     <li class="office"><div class="nav-header"><a href="javascript:;" class="ue-clear"><span>成绩管理</span><i class="icon"></i></a></div></li>
                 </ul>
             </div>
@@ -59,7 +63,7 @@ String basePath = request.getScheme() + "://"
     <div id="ft" class="ue-clear">
         <div class="ft-left">
             <span>学生综合管理系统</span>
-            <em>ChinaUnicom&nbsp;System</em>
+            <em>ChinaUnicom&nbsp;产品研发一部</em>
         </div>
         <div class="ft-right">
             <span>入职框架练习</span>

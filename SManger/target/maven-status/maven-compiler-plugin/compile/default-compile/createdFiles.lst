@@ -1,5 +1,9 @@
-com\unicom\service\impl\StudentServiceImpl.class
 com\unicom\controller\StudentController.class
+com\unicom\dao\ICoureDao.class
+com\unicom\controller\CoureController.class
+com\unicom\service\impl\CoureServiceImpl.class
+com\unicom\service\CoureService.class
+com\unicom\service\impl\StudentServiceImpl.class
 com\unicom\dao\IStudentDao.class
 com\unicom\model\Student.class
 com\unicom\service\StudentService.class

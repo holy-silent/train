@@ -2,12 +2,23 @@ package com.unicom.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+
+/*
+import org.json.JSONArray;
+import org.json.JSONObject;
+*/
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.unicom.model.CoureSel;
 import com.unicom.model.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.unicom.service.StudentService;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import static javafx.scene.input.KeyCode.T;
 
 @Controller
 @RequestMapping("/student")
@@ -134,4 +147,114 @@ public class StudentController {
 
 		return 1;
 	}
+
+
+
+	@RequestMapping("/scoreStatic")
+	public String scoreStatic(HttpServletRequest request) throws Exception {
+
+		List<Map<String, String>> list = studentService.scoreStatic();
+		String coureNameStr = studentService.coureNameStr();
+		String stuNameStr = studentService.stuNameStr();
+
+		//System.out.println(coureNameStr+"---"+stuNameStr);
+
+
+		//JSONArray json = new JSONArray();
+		/*for(Map<String, List<Map<String, String>>> m:list){
+			JSONObject jo = new JSONObject();
+			String[] split = coureNameStr.split(",");
+			for(String s:split){
+				List<Map<String, String>> list1 = m.get(s);
+				jo.put("rowname",s);
+				for(Map<String, String> map:list1){
+					String[] split2 = stuNameStr.split(",");
+					for(String stuName:split){
+						String score = map.get(stuName);
+						jo.put(stuName,score);
+					}
+				}
+			}
+			json.put(jo);
+		}*/
+		String json = JSON.toJSONString(list);
+		JSONArray array = JSON.parseArray(json);
+
+		String[] split = null;
+		int len=0;
+		List<String[]> l = new ArrayList<String[]>();
+		for(int i=0;i<array.size();i++){
+			//System.out.println(array.get(i).toString());
+			//{"rowname":"数学","小强":"86","小明":"89","张明":"90","李四":"55","赵五":"94"}
+			String s = array.get(i).toString();
+			s = s.substring(1,s.length()-1);
+			String[] split2 = s.split(",");
+			l.add(split2);
+			if (split2.length>len){
+				len = split2.length;
+				split=split2;
+			}
+		}
+
+		String str = "";
+		for(int i=0;i<split.length;i++){
+			String s = split[i];
+			//"rowname":"数学"
+			s = s.substring(0,s.indexOf(":"));
+			str = str +s+",";
+		}
+		System.out.println(str);
+		//"rowname,"小强,"小明,"张明,"李四,"赵五,
+		str=str.substring(str.indexOf(",")+1,str.lastIndexOf(","));
+		str = str.replace("\"","");
+		System.out.println(str);
+		System.out.println(json);
+		request.setAttribute("jsonStr", json);
+		request.setAttribute("coureNameStr", coureNameStr);
+		request.setAttribute("stuNameStr", str);
+
+		return "scoreStatic";
+	}
+
+
+
+
+	@RequestMapping("/getCoureSelList")
+	public String getCoureSelList(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
+		Student stu = studentService.getStuById(id);
+		List<CoureSel> list = studentService.getCoureSelList(id);
+		request.setAttribute("stu", stu);
+		request.setAttribute("list", list);
+
+
+		return "coureSel";
+	}
+
+
+	@RequestMapping("/delCoureSel")
+	@ResponseBody
+	public int delCoureSel(HttpServletRequest request,Model model)throws Exception{
+		request.setCharacterEncoding("UTF-8");
+
+		String stuId = request.getParameter("stuId");
+		String couId = request.getParameter("couId");
+
+		studentService.delCoureSel(stuId,couId);
+		return 1;
+	}
+
+
+	@RequestMapping("/addCoureSel")
+	@ResponseBody
+	public int addCoureSel(HttpServletRequest request,Model model)throws Exception{
+		request.setCharacterEncoding("UTF-8");
+
+		String stuId = request.getParameter("stuId");
+		String couId = request.getParameter("couId");
+		studentService.addCoureSel(stuId,couId);
+		return 1;
+	}
+
 }

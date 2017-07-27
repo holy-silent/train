@@ -1,8 +1,10 @@
 package com.unicom.service;
 
+import com.unicom.model.CoureSel;
 import com.unicom.model.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentService {
 
@@ -51,4 +53,21 @@ public interface StudentService {
 	 * @param id
 	 */
 	void delStuList(String id);
+
+	//List<Map<String,List<Map<String,String>>>> scoreStatic();
+	public  List<Map<String, String>> scoreStatic();
+	String coureNameStr();
+
+	String stuNameStr();
+
+
+	//选课信息
+
+	List<CoureSel> getCoureSelList(String id);
+
+
+	void delCoureSel(String stuId,String couId);
+
+
+	void addCoureSel(String stuId,String couId);
 }

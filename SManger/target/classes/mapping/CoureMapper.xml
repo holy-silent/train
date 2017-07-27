@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.unicom.dao.ICoureDao" >
+
+  <resultMap id="BaseResultMap" type="com.unicom.model.Coure" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, reserved1, reserved2
+  </sql>
+
+  <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+     select
+     <include refid="Base_Column_List" />
+     from students
+     where id = #{id,jdbcType=INTEGER}
+   </select>-->
+  <!---->
+  <!--查询学生列表-->
+  <select id="getStuList" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where 1=1
+    <if test="null != stuName and '' != stuName" >
+      and name like  CONCAT('%','${stuName}','%' )
+    </if>
+    limit #{pstart},#{psize}
+  </select>
+
+  <!--查询总记录数-->
+  <select id="getTotalCount" parameterType="map" resultType="java.lang.String">
+    select count(*) from course
+    where 1=1
+    <if test="null != stuName and '' != stuName" >
+      and name like  CONCAT('%','${stuName}','%' )
+    </if>
+  </select>
+
+  <!--查询学号是否存在-->
+  <select id="noIsExist" parameterType="java.lang.String" resultType="java.lang.String">
+    select count(*) from course
+    where 1=1
+    <if test="null != name and '' != name" >
+      and name = #{name}
+    </if>
+  </select>
+
+  <!--插入一条记录-->
+  <insert id="studentAdd" parameterType="com.unicom.model.Coure" >
+    insert into course (name)
+    values (#{name})
+  </insert>
+
+
+  <!--根据id得到学生信息-->
+  <select id="getStuById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where id=#{id}
+  </select>
+
+  <!--根据id修改学生信息-->
+  <update id="studentUpdate" parameterType="com.unicom.model.Coure">
+      update course
+      <set >
+        <if test="name != null" >
+          name = #{name,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where id=#{id,jdbcType=INTEGER}
+  </update>
+
+  <!--删除学生信息-->
+  <delete id="delStuList" parameterType="java.lang.String" >
+    delete from course
+    where id = #{id}
+  </delete>
+
+
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMapScore" type="com.unicom.model.StuScore" >
+    <result column="name" property="stuName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getStuScore" parameterType="java.lang.String" resultMap="BaseResultMapScore">
+    select
+    stu.name as name,sc.score as score
+    from students stu ,course cou ,score sc
+    where 1=1
+    and stu.id = sc.stu_id    and cou.id=sc.cou_id
+    <if test="null != _parameter  and '' != _parameter " >
+      and cou.name = #{coureName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMapCoure" type="com.unicom.model.Coure" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getCoureList" resultMap="BaseResultMapCoure">
+    select name
+    from course
+  </select>
+
+
+
+
+  <select id="getStuList2" resultMap="BaseResultMap">
+    select name
+    from students
+  </select>
+
+
+
+
+  <!--选课-->
+
+  <resultMap id="BaseResultMapCoureSel" type="com.unicom.model.CoureSel" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getCoureSelList" parameterType="java.lang.String" resultMap="BaseResultMapCoureSel">
+    select cou.id,cou.name,
+    case when (
+    select coue.id as id from students stu ,course coue,couresel cous
+    where stu.id = cous.stu_id and coue.id = cous.cou_id and stu.id=#{id,jdbcType=VARCHAR}
+    and cous.cou_id = cou.id
+    ) then 1 else 0 end  as status
+    from course cou
+  </select>
+
+
+  <!--退选-->
+  <delete id="delCoureSel" parameterType="map" >
+    delete from couresel
+    where stu_id = #{stuId} and cou_id = #{couId}
+  </delete>
+
+
+
+  <!--选课-->
+  <insert id="addCoureSel" parameterType="map" >
+    insert into couresel (stu_id, cou_id)
+    values (#{stuId}, #{couId})
+  </insert>
+
+</mapper>

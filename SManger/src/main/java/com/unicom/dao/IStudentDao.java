@@ -1,5 +1,8 @@
 package com.unicom.dao;
 
+import com.unicom.model.Coure;
+import com.unicom.model.CoureSel;
+import com.unicom.model.StuScore;
 import com.unicom.model.Student;
 
 import java.util.List;
@@ -60,4 +63,30 @@ public interface IStudentDao {
      * @param id
      */
     void delStuList(String id);
+
+    List<StuScore> getStuScore(String coureName);
+
+    List<Coure> getCoureList();
+
+    List<Student> getStuList2();
+
+
+    //选课信息
+    List<CoureSel> getCoureSelList(String id);
+
+
+    /**
+     * 退选课程
+     * MAP： stuId  学生id
+     *  couId  课程id
+     */
+    void delCoureSel(Map<String,Object> map);
+
+
+    /**
+     * 选课
+     * MAP： stuId  学生id
+     *  couId  课程id
+     */
+    void addCoureSel(Map<String,Object> map);
 }

@@ -41,7 +41,7 @@
 </div>
 <div class="btn ue-clear">
 	<a href="javascript:;" class="confirm" id="btn_add">增加</a>
-    <a href="javascript:;" class="clear" id="btn_clear">清空内容</a>
+    <a href="javascript:;" class="clear" id="btn_clear">返回</a>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -91,7 +91,7 @@
 
 
     $("#btn_clear").click(function(){
-        $(".noNull").val("");
+       history.back();
     });
 
 </script>

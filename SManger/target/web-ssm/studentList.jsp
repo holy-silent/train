@@ -22,7 +22,7 @@
     <div class="query-conditions ue-clear">
 
         <div class="conditions staff ue-clear">
-            <label>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+            <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
             <input type="text" placeholder="请输入姓名" value="${stuName}" id="stuName"/>
 
         </div>
@@ -34,6 +34,7 @@
 </div>
 <div class="table-operate ue-clear">
     <a href="${pageContext.request.contextPath}/studentAdd.jsp" class="add">添加</a>
+    <a href="${pageContext.request.contextPath}/student/scoreStatic" class="count">成绩</a>
 </div>
 <div class="table-box">
     <table>
@@ -60,6 +61,7 @@
                 <td class="table-operate " style="background:white;">
                     <a href="javascript:;" class="del" onClick="deleteStu('${stu.id}')">删除</a>
                     <a href="${pageContext.request.contextPath}/student/getStuById?id=${stu.id}" class="edit">编辑</a>
+                    <a href="${pageContext.request.contextPath}/student/getCoureSelList?id=${stu.id}" class="check">选课</a>
                 </td>
             </tr>
         </c:forEach>
@@ -119,6 +121,7 @@
                         +'  <td class="table-operate " style="background:white;">'
                         +'	    <a  class="del" onClick="deleteStu('+item.id+')">删除</a>'
                         +'	    <a  class="edit" href="${pageContext.request.contextPath}/student/getStuById?id='+item.id+'" >编辑</a>'
+                        +'      <a  class="check" href="${pageContext.request.contextPath}/student/getCoureSelList?id='+item.id+'">选课</a>'
                         +'  </td>'
                         +'</tr>';
                 });

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.unicom.dao.IScoreDao" >
+
+  <resultMap id="BaseResultMap" type="com.unicom.model.StuScore" >
+    <result column="stuId" property="stuId" jdbcType="VARCHAR" />
+    <result column="couId" property="couId" jdbcType="VARCHAR" />
+    <result column="name" property="stuName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    name,score
+  </sql>
+
+  <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+     select
+     <include refid="Base_Column_List" />
+     from students
+     where id = #{id,jdbcType=INTEGER}
+   </select>-->
+  <!---->
+  <!--查询学生列表-->
+  <select id="getStuList" parameterType="map" resultMap="BaseResultMap">
+    select stu.id as stuId,cou.id as couId,stu.name ,sc.score from students stu ,course cou,score sc
+    where stu.id=sc.stu_id and sc.cou_id=cou.id and cou.id=#{couId}
+    <if test="null != stuName and '' != stuName" >
+      and stu.name like  CONCAT('%','${stuName}','%' )
+    </if>
+    order by sc.score desc
+    limit #{pstart},#{psize}
+  </select>
+
+  <!--查询总记录数-->
+  <select id="getTotalCount" parameterType="map" resultType="java.lang.String">
+    select count(*) from students stu ,course cou,score sc
+    where stu.id=sc.stu_id and sc.cou_id=cou.id and cou.id=#{couId}
+    <if test="null != stuName and '' != stuName" >
+      and stu.name like  CONCAT('%','${stuName}','%' )
+    </if>
+  </select>
+
+  <!--查询学号是否存在-->
+  <select id="noIsExist" parameterType="java.lang.String" resultType="java.lang.String">
+    select count(*) from students
+    where 1=1
+    <if test="null != no and '' != no" >
+      and no = #{no}
+    </if>
+  </select>
+
+  <!--插入一条记录-->
+  <insert id="studentAdd" parameterType="com.unicom.model.StuScore" >
+    insert into score (stu_id, cou_id,score)
+    values (#{stuId}, #{couId},#{score})
+  </insert>
+
+
+  <!--根据id得到学生信息-->
+  <select id="getStuById" parameterType="map" resultMap="BaseResultMap">
+    select stu.id as stuId,cou.id as couId,stu.name ,sc.score from students stu ,course cou,score sc
+    where stu.id=sc.stu_id and sc.cou_id=cou.id and cou.id=#{couId} and stu.id=#{stuId}
+  </select>
+
+  <!--根据id修改学生信息-->
+  <update id="studentUpdate" parameterType="com.unicom.model.StuScore">
+      update score
+      <set >
+        <if test="score != null" >
+          score = #{score,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where stu_id=#{stuId,jdbcType=INTEGER} and cou_id =#{couId,jdbcType=INTEGER}
+  </update>
+
+  <!--删除学生信息-->
+  <delete id="delStuList" parameterType="map" >
+    delete from score
+    where stu_id = #{stuId} and cou_id = #{couId}
+  </delete>
+
+
+
+  <select id="getGzq" parameterType="java.lang.String" resultMap="BaseResultMap">
+   select stu.id as stuId,coue.id as couId,stu.name,stu.name as score
+from student.students stu ,student.course coue,student.couresel cous
+where  stu.id = cous.stu_id and coue.id = cous.cou_id and coue.id=#{couId}
+ and  not EXISTS (select * from score sc where sc.stu_id=stu.id and sc.cou_id=coue.id)
+  </select>
+
+
+
+
+
+  <resultMap id="BaseResultMapScore" type="com.unicom.model.StuScore" >
+    <result column="name" property="stuName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getStuScore" parameterType="java.lang.String" resultMap="BaseResultMapScore">
+    select
+    stu.name as name,sc.score as score
+    from students stu ,course cou ,score sc
+    where 1=1
+    and stu.id = sc.stu_id    and cou.id=sc.cou_id
+    <if test="null != _parameter  and '' != _parameter " >
+      and cou.name = #{coureName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+
+
+
+
+
+  <resultMap id="BaseResultMapCoure" type="com.unicom.model.Coure" >
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getCoureList" resultMap="BaseResultMapCoure">
+    select name
+    from course
+  </select>
+
+
+
+
+  <select id="getStuList2" resultMap="BaseResultMap">
+    select name
+    from students
+  </select>
+
+
+
+
+  <!--选课-->
+
+  <resultMap id="BaseResultMapCoureSel" type="com.unicom.model.CoureSel" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="getCoureSelList" parameterType="java.lang.String" resultMap="BaseResultMapCoureSel">
+    select cou.id,cou.name,
+    case when (
+    select coue.id as id from students stu ,course coue,couresel cous
+    where stu.id = cous.stu_id and coue.id = cous.cou_id and stu.id=#{id,jdbcType=VARCHAR}
+    and cous.cou_id = cou.id
+    ) then 1 else 0 end  as status
+    from course cou
+  </select>
+
+
+  <!--退选-->
+  <delete id="delCoureSel" parameterType="map" >
+    delete from couresel
+    where stu_id = #{stuId} and cou_id = #{couId}
+  </delete>
+
+
+
+  <!--选课-->
+  <insert id="addCoureSel" parameterType="map" >
+    insert into couresel (stu_id, cou_id)
+    values (#{stuId}, #{couId})
+  </insert>
+
+</mapper>
