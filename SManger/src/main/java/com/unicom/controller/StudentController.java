@@ -28,7 +28,7 @@ import com.unicom.service.StudentService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static javafx.scene.input.KeyCode.T;
-
+////////dddddddddddd
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -37,14 +37,14 @@ public class StudentController {
 	private StudentService studentService;
 
 	@RequestMapping("/getStuList")
-	public String getStuList(HttpServletRequest request) throws Exception {
+  public String getStuList(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 
 		ServletContext servletContext = request.getSession().getServletContext();
 		int page_size = Integer.parseInt(servletContext.getInitParameter("pagesize"));
 		//获得列表
 		//学生列表
-		//123456
+		//12344444444
 		int currPage = Integer.parseInt(request.getParameter("currPage"));
 		String stuName = request.getParameter("stuName");
 		if(stuName!=null)
