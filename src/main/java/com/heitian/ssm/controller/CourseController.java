@@ -23,7 +23,7 @@ public class CourseController {
     public String showCourses(HttpServletRequest request, Model model){
         List<Course> courseList = courseService.getCourses();
         model.addAttribute("courseList",courseList);
-        System.out.println("dddd kjdkjdskfjd");
+        System.out.println("dddd ttt");
         return "/course";
     }
     @RequestMapping("/searchOne")
