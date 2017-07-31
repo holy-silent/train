@@ -24,6 +24,8 @@ public class CourseController {
         List<Course> courseList = courseService.getCourses();
         model.addAttribute("courseList",courseList);
         System.out.println("dddd ttt");
+        System.out.println("dddd ttt aaa");
+
         return "/course";
     }
     @RequestMapping("/searchOne")
