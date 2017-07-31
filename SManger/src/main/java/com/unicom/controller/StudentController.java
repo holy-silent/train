@@ -70,7 +70,7 @@ public class StudentController {
 		int page_size = Integer.parseInt(servletContext.getInitParameter("pagesize"));
 		//获得列表
 		int currPage = Integer.parseInt(request.getParameter("currPage"));
-
+		//aaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		String stuName = request.getParameter("stuName");
 		stuName= URLDecoder.decode(stuName, "UTF-8");
 
