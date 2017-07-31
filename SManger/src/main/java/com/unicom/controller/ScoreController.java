@@ -48,7 +48,7 @@ public class ScoreController {
 
 		List<StuScore> stus = scoreService.getStuList(couId,stuName,currPage,page_size);
 
-		//获得总行数
+		//获得总行数123
 		String count = scoreService.getTotalCount(couId,stuName);
 
 		request.setAttribute("students", stus);
