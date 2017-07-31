@@ -44,7 +44,7 @@ public class StudentController {
 		int page_size = Integer.parseInt(servletContext.getInitParameter("pagesize"));
 		//获得列表
 		//学生列表
-		//1
+		//1000000000000000
 		int currPage = Integer.parseInt(request.getParameter("currPage"));
 		String stuName = request.getParameter("stuName");
 		if(stuName!=null)
