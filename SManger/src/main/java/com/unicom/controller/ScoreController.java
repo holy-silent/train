@@ -42,7 +42,7 @@ public class ScoreController {
 
 		String couId = request.getParameter("couId");
 		String stuName = request.getParameter("stuName");
-
+		//wodwd
 		if(stuName!=null)
 			stuName = new String(stuName.getBytes("iso8859-1"),"UTF-8");
 
