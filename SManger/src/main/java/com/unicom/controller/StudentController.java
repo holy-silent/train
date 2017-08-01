@@ -28,8 +28,7 @@ import com.unicom.service.StudentService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static javafx.scene.input.KeyCode.T;
-////////sssssssss
-@Controller
+////////ouoiuiuiuiuiuiuythgghg@Controller
 @RequestMapping("/student")
 public class StudentController {
 
