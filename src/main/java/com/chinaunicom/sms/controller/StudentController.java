@@ -20,7 +20,6 @@ public class StudentController {
 	@RequestMapping("/first")
 	public String toFirstPage() {
 		System.out.println("This is first...");
-		System.out.println("This is first...");
 		System.out.println("三次哈哈哈...");
 		System.out.println(studentService.getStudentById(1).getName());
 		return "first";
