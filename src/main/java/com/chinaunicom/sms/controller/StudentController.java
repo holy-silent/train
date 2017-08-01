@@ -1,10 +1,8 @@
 package com.chinaunicom.sms.controller;
 
-import java.nio.file.attribute.UserPrincipalLookupService;
 
 import javax.annotation.Resource;
 
-import org.apache.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,6 +18,7 @@ public class StudentController {
 	@RequestMapping("/first")
 	public String toFirstPage() {
 		System.out.println("This is first...");
+		System.out.println("我再测     试一次");
 		System.out.println("我再测试一次");
 		System.out.println("我再测试一次");
 		System.out.println(studentService.getStudentById(1).getName());
