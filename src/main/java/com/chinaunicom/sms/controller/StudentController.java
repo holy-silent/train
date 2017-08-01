@@ -21,6 +21,7 @@ public class StudentController {
 	public String toFirstPage() {
 		System.out.println("This is first...");
 		System.out.println("This is first...");
+		System.out.println("哈哈哈...");
 		System.out.println(studentService.getStudentById(1).getName());
 		return "first";
 	}
